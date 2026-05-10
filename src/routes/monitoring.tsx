@@ -218,23 +218,29 @@ function Monitor() {
 
                   {/* Permission gate */}
                   {permission !== "granted" && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 grid-bg">
-                      <div className="size-20 rounded-full glass-strong flex items-center justify-center mb-5 glow-cyan">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                      {/* Grid background separated to prevent its mask-image from dimming the button */}
+                      <div className="absolute inset-0 grid-bg pointer-events-none" />
+                      
+                      <div className="relative z-10 size-20 rounded-full glass-strong flex items-center justify-center mb-5 glow-cyan">
                         <Camera className="size-9" style={{ color: "var(--neon-cyan)" }} />
                       </div>
-                      <h3 className="text-xl font-semibold mb-2">Activate AI Focus Tracking</h3>
-                      <p className="text-sm text-muted-foreground max-w-md mb-5">
+                      <h3 className="relative z-10 text-xl font-semibold mb-2">Activate AI Focus Tracking</h3>
+                      <p className="relative z-10 text-sm text-muted-foreground max-w-md mb-5">
                         We use your front camera to analyze attention in real-time. Video never leaves your device — processing is fully on-device.
                       </p>
-                      <button
-                        onClick={requestCamera}
-                        disabled={permission === "requesting"}
-                        className="px-6 py-3 rounded-xl bg-gradient-cyan text-background font-medium glow-cyan hover:opacity-90 transition disabled:opacity-50"
-                      >
-                        {permission === "requesting" ? "Requesting access…" : "Enable Camera"}
-                      </button>
+                      <div className="relative z-10 mt-2 flex items-center justify-center">
+                        <div className="absolute -inset-8 bg-cyan-400/20 blur-2xl rounded-full pointer-events-none" />
+                        <button
+                          onClick={requestCamera}
+                          disabled={permission === "requesting"}
+                          className="relative z-10 px-8 py-3 rounded-xl bg-gradient-cyan text-white font-bold glow-cyan brightness-110 contrast-125 hover:brightness-125 transition disabled:opacity-50"
+                        >
+                          {permission === "requesting" ? "Requesting access…" : "Enable Camera"}
+                        </button>
+                      </div>
                       {permission === "denied" && (
-                        <p className="mt-4 text-xs text-danger font-mono">{error || "Camera permission denied"}</p>
+                        <p className="relative z-10 mt-4 text-xs text-danger font-mono">{error || "Camera permission denied"}</p>
                       )}
                     </div>
                   )}
