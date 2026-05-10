@@ -1,10 +1,6 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
-  tanstackStart: {
-    server: { entry: "server" },
-  },
-
   vite: {
     server: {
       host: "0.0.0.0",
@@ -12,7 +8,7 @@ export default defineConfig({
 
     preview: {
       host: "0.0.0.0",
-      allowedHosts: ["focusai-abwt.onrender.com"],
+      allowedHosts: true,
     },
   },
 });
